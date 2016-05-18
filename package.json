@@ -1,0 +1,26 @@
+{
+  "name": "voteup",
+  "version": "1.0.0",
+  "description": "A simple app where you can create your own voting poll in seconds. ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pashtunzoy/VotingUP.git"
+  },
+  "author": "Asif Norzai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pashtunzoy/VotingUP/issues"
+  },
+  "homepage": "https://github.com/Pashtunzoy/VotingUP#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.9.2"
+  }
+}
