@@ -1,3 +1,3 @@
-## VoteUP(WIP)
+# Backend for any SPA app.
 
-A voting app to vote on your favourite subject and create your own voting poll with in seconds. 
+This is a simple boilerplate to use/test a backend with any SPA app, be it React, React Native, Angular, Ember etc.

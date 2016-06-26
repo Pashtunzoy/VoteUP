@@ -1,28 +1,28 @@
 {
-  "name": "voteup",
+  "name": "backend-for-spas",
   "version": "1.0.0",
-  "description": "A simple app where you can create your own voting poll in seconds. ",
+  "description": "A backend to serve any SPA app using JWTs for auth.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js --exec babel-node --presets es2015,stage-2"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Pashtunzoy/VotingUP.git"
-  },
-  "author": "Asif Norzai",
+  "author": "Asep Norzai",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Pashtunzoy/VotingUP/issues"
-  },
-  "homepage": "https://github.com/Pashtunzoy/VotingUP#readme",
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "body-parser": "^1.15.1",
-    "express": "^4.13.4",
-    "mongoose": "^4.4.17"
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0",
+    "jsonwebtoken": "^7.0.1",
+    "mongoose": "^4.5.1",
+    "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.0.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-2": "^6.5.0",
     "nodemon": "^1.9.2"
   }
 }
