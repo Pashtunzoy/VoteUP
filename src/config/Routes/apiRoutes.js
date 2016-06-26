@@ -18,7 +18,7 @@ export default () => {
 
     newUser.save((err) => {
       if(err) res.json({success: false, message: 'That email address already exists.'});
-      res.json({success: true, message: 'Sucessfuly signed up.'})
+      res.json({success: true, message: 'Sucessfuly signed up.'});
     });
   });
 
@@ -32,7 +32,7 @@ export default () => {
             const token = jwt.sign(user.toObject(), config.secret, {
               expiresIn: 86400
             });
-            return res.json({success: true, token: `JWT ${token}`})
+            return res.json({success: true, token: `JWT ${token}`});
           }
           res.send({sucess: false, message: 'Authentication failed. Password did not match.'});
       });

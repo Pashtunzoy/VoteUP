@@ -8,7 +8,7 @@ import cors from 'cors' ;
 import passport from 'passport';
 import config from '../webpack.config.dev';
 import open from 'open';
-import config from '../src/config/main';
+import rootConfig from '../src/config/main';
 import User from '../src/config/models/user';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -16,7 +16,7 @@ import jwtStrategy from '../src/config/auth/passport';
 import apiRouter from '../src/config/Routes/apiRoutes';
 /* eslint-disable no-console */
 
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 8000;
 const app = express();
 dotenv.config();
 
@@ -33,7 +33,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 app.use(require('webpack-hot-middleware')(compiler));
 
 
-mongoose.connect(config.database);
+mongoose.connect(rootConfig.database);
 app.use(passport.initialize());
 jwtStrategy(passport);
 

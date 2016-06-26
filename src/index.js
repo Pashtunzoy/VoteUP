@@ -6,6 +6,6 @@ import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 
 render(
-    <h1>Welcome</h1>,
+    <h1>VoteUP</h1>,
     document.getElementById('app')
 );
