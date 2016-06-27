@@ -4,8 +4,12 @@ import React from 'react';
 import {render} from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
+import routes from './routes';
+import './styles/main.scss';
 
 render(
-    <h1>VoteUP</h1>,
-    document.getElementById('app')
+  <Provider>
+    <Router history={browserHistory} routes={routes} />
+  </Provider>,
+  document.getElementById('app')
 );
