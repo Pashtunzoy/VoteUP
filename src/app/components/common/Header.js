@@ -10,6 +10,8 @@ const Header = () => {
         <Link to="/auth" activeClassName="active">User</Link>
         {" | "}
         <Link to="/about" activeClassName="active">About</Link>
+        {" | "}
+        <Link to="/user-polls" activeClassName="active">MyPolls</Link>
       </nav>
     </div>
   );
