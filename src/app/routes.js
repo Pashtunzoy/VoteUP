@@ -6,6 +6,7 @@ import AboutPage from './components/about/AboutPage';
 import SetupUser from './components/user/SetupUser';
 import MyPolls from './components/user/MyPolls';
 import SinglePoll from './components/user/SinglePoll';
+import NewPoll from './components/user/NewPoll';
 
 export default (
   <Route path="/" component={App}>
@@ -14,5 +15,6 @@ export default (
     <Route path="auth" component={SetupUser} />
     <Route path="polls" component={MyPolls}/>
     <Route path="poll/:id" component={SinglePoll}/>
+    <Route path="new" component={NewPoll}/>
   </Route>
 );

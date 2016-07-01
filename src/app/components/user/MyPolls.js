@@ -9,10 +9,19 @@ class MyPolls extends Component {
     this.state = {
       chartData: [],
     };
+
+    this.deletePoll = this.deletePoll.bind(this);
   }
 
   componentDidMount() {
     fetchPoll().then(data => this.setState({chartData: data}));
+  }
+
+
+  deletePoll(id) {
+    let { chartData } = this.state;
+    chartData = chartData.filter(chart => chart.id !== id);
+    this.setState({chartData})
   }
 
   render () {
@@ -21,7 +30,12 @@ class MyPolls extends Component {
         <h1>My Polls</h1>
         <ul>
           {
-            this.state.chartData.map(poll => <Link to={`poll/${poll.id}`} key={poll.id}><li>{poll.title}</li></Link> )
+            this.state.chartData.map(poll =>
+              <div key={poll.id}>
+                <Link to={`poll/${poll.id}`}><li>{poll.title}</li></Link>
+                <span onClick={(e) => this.deletePoll(poll.id)}>&times;</span>
+              </div>
+            )
           }
         </ul>
       </div>

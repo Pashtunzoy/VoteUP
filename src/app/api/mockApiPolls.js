@@ -3,7 +3,50 @@ import { v4 } from 'node-uuid';
 export const fakeChartData = [
   {
     id: v4(),
+    title: 'What Color is Earth?',
+    display: true,
+    poll: [
+      {
+        id: v4(),
+        value: 0,
+        color:"#F7464A",
+        highlight: "#FF5A5E",
+        label: "Red"
+      },
+      {
+        id: v4(),
+        value: 0,
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+        label: "Green"
+      },
+      {
+        id: v4(),
+        value: 0,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Yellow"
+      },
+      {
+        id: v4(),
+        value: 0,
+        color: "#949FB1",
+        highlight: "#A8B3C5",
+        label: "Grey"
+      },
+      {
+        id: v4(),
+        value: 0,
+        color: "#4D5360",
+        highlight: "#616774",
+        label: "Dark Grey"
+      }
+    ]
+  },
+  {
+    id: v4(),
     title: 'Vote Your Favourite Color',
+    display: false,
     poll: [
       {
         id: v4(),
@@ -45,6 +88,7 @@ export const fakeChartData = [
   {
     id: v4(),
     title: 'How Do You Rate This Site?',
+    display: true,
     poll : [
     	{
         id: v4(),
@@ -99,21 +143,30 @@ const delay = (ms) =>
   new Promise(resolve => setTimeout(resolve, ms));
 
 
-export const fetchPoll = (filter) =>
+export const fetchPoll = () =>
   delay(500).then(() => {
     return [...fakeChartData];
   });
+export const addNewPoll = (poll) => {
+  return delay(500).then(() => {
+    // return [...fakeChartData, poll];
+    fakeChartData.push(poll);
+  });
+};
 
 export const fetchPollOptById = (id) =>
   delay(500).then(() => {
-  // for (let i = 0; i < fakeChartData.length; i++) {
-  //   for (let j = 0; j < fakeChartData[i].poll.length; j++) {
-  //     if (fakeChartData[i].poll[j].id === id) {
-  //       return fakeChartData[i].poll[j]
-  //     }
-  //   }
-  // }
-  return fakeChartData.reduce((acc, data) => acc.concat(data.poll), []).filter(pollObj => pollObj.id === id)[0];
+  // return fakeChartData.reduce((acc, data) => acc.concat(data.poll), []).filter(pollObj => pollObj.id === id)[0];
+  var result;
+    fakeChartData.map(data => {
+        data.poll.map(data => {
+            if (data.id === id) {
+                result = data;
+                return data;
+            }
+        });
+    });
+    return result;
 });
 
 export const fetchChartById = (id) =>

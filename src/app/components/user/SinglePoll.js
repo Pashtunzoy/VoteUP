@@ -5,7 +5,7 @@ import Chart from 'chartjs';
 import { fakeChartData, fakeChartOptions, fetchPoll, fetchChartById, fetchPollOptById, addNewPollOpt, deletePollOpt } from '../../api/mockApiPolls';
 import Input from '../common/Input';
 
-class MyPolls extends Component {
+class SinglePoll extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -31,8 +31,8 @@ class MyPolls extends Component {
   }
 
   handleCheckClick(e, id) {
+    console.log('Click');
     fetchPollOptById(id).then(opt => {
-      console.log(opt);
       this.setState({currentOpt: opt});
     });
     this.setState({checkedValue: e.target.value});
@@ -67,4 +67,4 @@ class MyPolls extends Component {
   }
 }
 
-export default MyPolls;
+export default SinglePoll;
