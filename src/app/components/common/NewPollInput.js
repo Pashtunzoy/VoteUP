@@ -17,6 +17,21 @@ const NewPollInput = ({id, i, type, placeholder, name, value, checked, isCheckBo
       <input type={type} placeholder={placeholder} name={name} value={value} onChange={onInputChange}/> <span onClick={onXClick}>&times;</span>
     </div>
   );
-}
+};
+
+NewPollInput.propTypes = {
+  id: PropTypes.string.isRequired,
+  i: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  checked: PropTypes.bool.isRequired,
+  isCheckBox: PropTypes.bool.isRequired,
+  isTitle: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  onTitleChange: PropTypes.func.isRequired
+};
 
 export default NewPollInput;

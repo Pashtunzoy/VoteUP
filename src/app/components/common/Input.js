@@ -15,6 +15,7 @@ const Input = ({id, type, name, value, checkedValue, checkClick}) => {
 };
 
 Input.propTypes = {
+  id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,

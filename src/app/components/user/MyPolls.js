@@ -7,7 +7,7 @@ class MyPolls extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      chartData: [],
+      chartData: []
     };
 
     this.deletePoll = this.deletePoll.bind(this);
@@ -21,7 +21,7 @@ class MyPolls extends Component {
   deletePoll(id) {
     let { chartData } = this.state;
     chartData = chartData.filter(chart => chart.id !== id);
-    this.setState({chartData})
+    this.setState({chartData});
   }
 
   render () {

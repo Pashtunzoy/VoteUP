@@ -30,8 +30,12 @@ class SinglePoll extends Component {
     );
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log('Hello');
+    console.log(nextProps);
+  }
+
   handleCheckClick(e, id) {
-    console.log('Click');
     fetchPollOptById(id).then(opt => {
       this.setState({currentOpt: opt});
     });
@@ -45,7 +49,7 @@ class SinglePoll extends Component {
         opts.value = opts.value + 20;
       }
       return opts;
-    })
+    });
     this.setState({poll: allOpts});
   }
   render () {
@@ -57,7 +61,7 @@ class SinglePoll extends Component {
         <form>
           {
             this.state.poll.map(opt => {
-              return  (<Input key={opt.id} id={opt.id} type="radio" name={opt.label} value={opt.label} checkedValue={this.state.checkedValue} checkClick={this.handleCheckClick}/>)
+              return  (<Input key={opt.id} id={opt.id} type="radio" name={opt.label} value={opt.label} checkedValue={this.state.checkedValue} checkClick={this.handleCheckClick}/>);
             })
           }
           <button type="submit" onClick={this.handleSumbit}>VOTE</button>
@@ -66,5 +70,9 @@ class SinglePoll extends Component {
     );
   }
 }
+
+SinglePoll.propTypes = {
+  params: PropTypes.object.isRequired
+};
 
 export default SinglePoll;

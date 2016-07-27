@@ -1,7 +1,24 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
+const PollSchema = new mongoose.Schema({
+  value: {type: Number, default: 0},
+  color: String,
+  highlight: String,
+  label: String,
+  createdAt: {type: Date, default: Date.now}
+});
+
+const PollsSchema = new mongoose.Schema({
+    title: String,
+    publicDisplay: Boolean,
+    poll: [PollSchema]
+});
+
+
 const UserSchema = new mongoose.Schema({
+  firstName: String,
+  lastName: String,
   email: {
     type: String,
     lowercase: true,
@@ -11,8 +28,10 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  polls: [PollsSchema]
 });
+
 
 UserSchema.pre('save', function(next) {
   const user = this;

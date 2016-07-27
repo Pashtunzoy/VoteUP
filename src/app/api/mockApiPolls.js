@@ -90,41 +90,41 @@ export const fakeChartData = [
     title: 'How Do You Rate This Site?',
     display: true,
     poll : [
-    	{
-        id: v4(),
-    		value: 0,
-    		color: "grey",
-        highlight: "darkgrey",
-        label: "Awesome"
-    	},
-    	{
+      {
         id: v4(),
         value: 0,
-    		color : "#1789D4",
+        color: "grey",
+        highlight: "darkgrey",
+        label: "Awesome"
+      },
+      {
+        id: v4(),
+        value: 0,
+        color : "#1789D4",
         highlight: "#1789c4",
         label: "Cool"
-    	},
-    	{
+      },
+      {
         id: v4(),
-    		value : 0,
-    		color : "#CB4B16",
+        value : 0,
+        color : "#CB4B16",
         highlight: "#aa4a16",
         label: "Hate It!"
-    	},
-    	{
+      },
+      {
         id: v4(),
-    		value : 0,
-    		color : "#1F8261",
+        value : 0,
+        color : "#1F8261",
         highlight: "#1A6261",
         label: "OK"
-    	},
-    	{
+      },
+      {
         id: v4(),
-    		value : 0,
-    		color : "#FFA500",
+        value : 0,
+        color : "#FFA500",
         highlight: "#FFA911",
         label: "Mehhh"
-    	}
+      }
     ]
   }
 ];
@@ -157,7 +157,7 @@ export const addNewPoll = (poll) => {
 export const fetchPollOptById = (id) =>
   delay(500).then(() => {
   // return fakeChartData.reduce((acc, data) => acc.concat(data.poll), []).filter(pollObj => pollObj.id === id)[0];
-  var result;
+  let result;
     fakeChartData.map(data => {
         data.poll.map(data => {
             if (data.id === id) {

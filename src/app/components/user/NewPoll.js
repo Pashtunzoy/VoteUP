@@ -45,7 +45,7 @@ class NewPoll extends React.Component {
       title,
       display,
       poll
-    }
+    };
     addNewPoll(newPoll).then(() => {
       // console.log(`New Poll Added: ${JSON.stringify(newPoll)}`);
       this.redirectSave();

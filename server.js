@@ -10,7 +10,7 @@ import jwt from 'jsonwebtoken';
 import config from './src/config/main';
 import User from './src/config/models/user';
 import jwtStrategy from './src/config/auth/passport';
-import apiRouter from './src/config/Routes/apiRoutes';
+import routes from './src/config/Routes/routes';
 
 const app = express();
 dotenv.config();
@@ -26,10 +26,20 @@ jwtStrategy(passport);
 
 
 app.use(cors({ origin: '*' }));
-app.use('/api', apiRouter());
+app.use('/api', routes);
 
 app.get('*', function(req, res) {
   res.send(`API ENDPOINT FOR VOTEUP`);
+});
+
+// Error handler
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.json({
+    error: {
+      message: err.message
+    }
+  });
 });
 
 const port = process.env.PORT || 3000;

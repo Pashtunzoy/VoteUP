@@ -7,12 +7,13 @@ class HomePage extends Component {
     super(props, context);
     this.state = {
       allPolls: []
-    }
+    };
   }
 
   componentDidMount() {
     fetchPoll().then(data => this.setState({allPolls: data}));
   }
+
   render() {
     return (
       <div>
@@ -31,6 +32,8 @@ class HomePage extends Component {
       </div>
     );
   }
-};
+}
+
+HomePage.propTypes = {};
 
 export default HomePage;
