@@ -8,6 +8,7 @@ import MyPolls from './components/user/MyPolls';
 import SinglePoll from './components/user/SinglePoll';
 import NewPoll from './components/user/NewPoll';
 
+
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />

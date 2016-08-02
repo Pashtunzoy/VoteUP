@@ -1,39 +1,45 @@
 import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as pollsActions from '../../actions/pollsActions';
+import * as pollActions from '../../actions/pollActions';
 import { Link } from 'react-router';
-import { fetchPoll } from '../../api/mockApiPolls';
 import Input from '../common/Input';
 
 class MyPolls extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      chartData: []
+      chartData: props.polls
     };
-
     this.deletePoll = this.deletePoll.bind(this);
   }
 
   componentDidMount() {
-    fetchPoll().then(data => this.setState({chartData: data}));
+    this.props.pollsActions.loadAllPolls();
   }
 
-
   deletePoll(id) {
+    this.props.pollActions.deletePollById(id)
+      .then(data => {
+        console.log(data);
+    });
     let { chartData } = this.state;
     chartData = chartData.filter(chart => chart.id !== id);
     this.setState({chartData});
   }
 
   render () {
+    console.log(this.props.polls);
     return (
       <div>
         <h1>My Polls</h1>
         <ul>
           {
-            this.state.chartData.map(poll =>
-              <div key={poll.id}>
-                <Link to={`poll/${poll.id}`}><li>{poll.title}</li></Link>
-                <span onClick={(e) => this.deletePoll(poll.id)}>&times;</span>
+            this.props.polls.map(poll =>
+              <div key={poll._id}>
+                <Link to={`poll/${poll._id}`}><li>{poll.title}</li></Link>
+                <span onClick={(e) => this.deletePoll(poll._id)}>&times;</span>
               </div>
             )
           }
@@ -43,4 +49,17 @@ class MyPolls extends Component {
   }
 }
 
-export default MyPolls;
+function mapStateToProps(state) {
+  return {
+    polls: state.polls
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    pollActions: bindActionCreators(pollActions, dispatch),
+    pollsActions: bindActionCreators(pollsActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyPolls);

@@ -1,5 +1,16 @@
 import { v4 } from 'node-uuid';
+import 'isomorphic-fetch';
 
+// export const fakeChartData = fetch('http://localhost:3000/api/5798b0b98d14e1fd265d3c67')
+//   .then(function(response) {
+//     if (response.status >= 400) {
+//         throw new Error("Bad response from server");
+//     }
+//     return response.json();
+//   })
+//   .then(function(data) {
+//     return data;
+// });
 export const fakeChartData = [
   {
     id: v4(),
@@ -145,8 +156,18 @@ const delay = (ms) =>
 
 export const fetchPoll = () =>
   delay(500).then(() => {
-    return [...fakeChartData];
-  });
+    return fetch('http://localhost:3000/api/5798b0b98d14e1fd265d3c67')
+      .then(function(response) {
+        if (response.status >= 400) {
+            throw new Error("Bad response from server");
+        }
+        return response.json();
+      })
+      .then(function(data) {
+        return data;
+    });
+});
+
 export const addNewPoll = (poll) => {
   return delay(500).then(() => {
     // return [...fakeChartData, poll];
@@ -154,25 +175,72 @@ export const addNewPoll = (poll) => {
   });
 };
 
-export const fetchPollOptById = (id) =>
-  delay(500).then(() => {
-  // return fakeChartData.reduce((acc, data) => acc.concat(data.poll), []).filter(pollObj => pollObj.id === id)[0];
-  let result;
-    fakeChartData.map(data => {
-        data.poll.map(data => {
-            if (data.id === id) {
-                result = data;
-                return data;
-            }
-        });
-    });
-    return result;
+export const fetchChartById = (id) =>
+delay(500).then(() => {
+  return fetch(`http://localhost:3000/api/5798b0b98d14e1fd265d3c67/polls/${id}`)
+  .then(function(response) {
+    if (response.status >= 400) {
+      throw new Error("Bad response from server");
+    }
+    return response.json();
+  })
+  .then(function(data) {
+    return data;
+  });
+  // return fakeChartData.filter((data) => data.id === id);
 });
 
-export const fetchChartById = (id) =>
+export const fetchPollOptById = (id, chartId) =>
   delay(500).then(() => {
-    return fakeChartData.filter((data) => data.id === id);
+  // return fakeChartData.reduce((acc, data) => acc.concat(data.poll), []).filter(pollObj => pollObj.id === id)[0];
+  //   fakeChartData.map(data => {
+  //       data.poll.map(data => {
+  //           if (data.id === id) {
+  //               result = data;
+  //               return data;
+  //           }
+  //       });
+  //   });
+  //   return result;
+  // console.log(fakeChartData)
+  let result;
+  return fetchChartById(chartId).then((data) => {
+    data.poll.map(data => {
+      if (data._id === id) {
+          result = data;
+          return data;
+      }
+    });
+    return result;
+  })
 });
+
+export const voteInput = (id, chartId) => {
+  delay(500).then(() => {
+    const URL = `http://localhost:3000/api/5798b0b98d14e1fd265d3c67/polls/${chartId}/option/${id}`;
+    fetch(URL,
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: ''
+      }
+    )
+    .then(function(response) {
+      if (response.status >= 400) {
+        throw new Error("Bad response from server");
+      }
+      return response.json();
+    })
+    .then(function(data) {
+      console.log(data);
+      return data;
+    });
+  });
+};
+
 
 export const addNewPollOpt = (data) =>
   delay(500).then(() => {

@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 import { v4 } from 'node-uuid';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as pollActions from '../../actions/pollActions';
 import { browserHistory } from 'react-router';
-import { addNewPoll, fetchPoll } from '../../api/mockApiPolls';
 import NewPollInput from '../common/NewPollInput';
 
 class NewPoll extends React.Component {
@@ -16,14 +18,14 @@ class NewPoll extends React.Component {
           id: v4(),
           value: 0,
           color: '#F87525',
-          highlight: '#F26525',
+          highlight: '#E01400',
           label: ''
         },
         {
           id: v4(),
           value: 0,
-          color: '#F87525',
-          highlight: '#F26525',
+          color: '#E00000',
+          highlight: '#F88888',
           label: ''
         }
       ],
@@ -46,8 +48,9 @@ class NewPoll extends React.Component {
       display,
       poll
     };
-    addNewPoll(newPoll).then(() => {
-      // console.log(`New Poll Added: ${JSON.stringify(newPoll)}`);
+    this.props.actions.addNewPoll(newPoll)
+    .then(poll => {
+      console.log(`The new poll from NewPoll container: ${poll}`);
       this.redirectSave();
     });
   }
@@ -62,6 +65,7 @@ class NewPoll extends React.Component {
    const color = '#' + ("000000" + Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6);
    const highlight = '#' + ("000000" + Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6);
    pollData = [...pollData, {id: v4(), value: 0, color: color, highlight: highlight, label: '' }];
+  //  console.log(JSON.stringify(pollData));
    this.setState({poll: pollData});
   }
 
@@ -144,4 +148,10 @@ NewPoll.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
-export default NewPoll;
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(pollActions, dispatch)
+  };
+}
+
+export default connect(null, mapDispatchToProps)(NewPoll);

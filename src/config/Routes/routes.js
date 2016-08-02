@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+mongoose.Promise = require('bluebird');
 import passport from 'passport';
 import config from '../main';
 import User from '../models/user';
@@ -22,6 +23,16 @@ router.param("uID", (req, res, next, id) => {
 router.param("pID", (req, res, next, id) => {
   req.poll = req.uID.polls.id(id);
   if (!req.poll) {
+    const err = new Error("Not Found");
+    err.status = 404;
+    return next(err);
+  }
+  next();
+});
+
+router.param("oID", (req, res, next, id) => {
+  req.option = req.poll.poll.id(id);
+  if (!req.option) {
     const err = new Error("Not Found");
     err.status = 404;
     return next(err);
@@ -87,8 +98,37 @@ router.post('/:uID/new', (req, res, next) => {
 
 // GET single POLL based on ID
 router.get('/:uID/polls/:pID', (req, res, next) => {
-  console.log('It worked and here is the data:', req.poll);
+  // console.log('It worked and here is the data:', req.poll);
+  console.log(req.poll.id);
   res.json(req.poll);
+});
+
+// Delete single POLL based on ID
+router.delete('/:uID/polls/:pID/', (req, res, next) => {
+  // console.log(req.poll.id);
+  req.uID.polls.pull({_id: req.poll.id });
+  req.uID.save((err, result) => {
+    if(err) return next(err);
+    res.json(result.polls);
+  });
+});
+
+// GET single POLL option based on ID
+router.get('/:uID/polls/:pID/option/:oID', (req, res, next) => {
+  // console.log('It worked and here is the data:', req.option);
+  res.json(req.option);
+});
+
+// POST to Up Vote an Option of a Poll
+router.post('/:uID/polls/:pID/option/:oID', (req, res, next) => {
+  const pID = req.params.pID;
+  const oID = req.params.oID;
+  req.uID.polls.id(pID).poll.id(oID).value += 1;
+  req.uID.save((err, result) => {
+    if(err) return next(err);
+    res.status(201);
+    res.json(result.polls.id(pID));
+  });
 });
 
 export default router;

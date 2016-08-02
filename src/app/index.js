@@ -9,7 +9,6 @@ import routes from './routes';
 import './styles/main.scss';
 
 const store = configureStore();
-console.log(store.getState());
 
 render(
   <Provider store={store}>

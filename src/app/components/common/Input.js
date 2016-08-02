@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 
-const Input = ({id, type, name, value, checkedValue, checkClick}) => {
+const Input = ({id, chartId, type, name, value, checkedValue, checkClick}) => {
   const printChecked = (e) => {
-    checkClick(e, id);
+    checkClick(e, id, chartId);
   };
 
   return (
@@ -16,6 +16,7 @@ const Input = ({id, type, name, value, checkedValue, checkClick}) => {
 
 Input.propTypes = {
   id: PropTypes.string.isRequired,
+  chartId: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,

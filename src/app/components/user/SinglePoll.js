@@ -1,20 +1,21 @@
 import React, { PropTypes, Component } from 'react';
 import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Pie } from 'react-chartjs';
 import Chart from 'chartjs';
-import { fakeChartData, fakeChartOptions, fetchPoll, fetchChartById, fetchPollOptById, addNewPollOpt, deletePollOpt } from '../../api/mockApiPolls';
+import * as pollActions from '../../actions/pollActions';
 import Input from '../common/Input';
+
+import { fakeChartOptions, voteInput } from '../../api/mockApiPolls';
 
 class SinglePoll extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      chartData: {},
-      poll: [],
       chartOptions: fakeChartOptions,
       checkedValue: '',
-      clickedId: '',
-      currentOpt: {}
+      clickedId: ''
     };
 
     this.handleCheckClick = this.handleCheckClick.bind(this);
@@ -22,46 +23,34 @@ class SinglePoll extends Component {
   }
 
   componentDidMount() {
-    fetchChartById(this.props.params.id).then(data =>
-      this.setState({
-        chartData: data[0],
-        poll: data[0].poll
-      })
-    );
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log('Hello');
-    console.log(nextProps);
+    this.props.actions.loadAPollById(this.props.params.id);
   }
 
   handleCheckClick(e, id) {
-    fetchPollOptById(id).then(opt => {
-      this.setState({currentOpt: opt});
-    });
-    this.setState({checkedValue: e.target.value});
+    this.setState({checkedValue: e.target.value, clickedId: id});
   }
 
   handleSumbit(e) {
     e.preventDefault();
-    const allOpts = this.state.chartData.poll.map(opts => {
-      if (this.state.currentOpt.id === opts.id) {
-        opts.value = opts.value + 20;
-      }
-      return opts;
-    });
-    this.setState({poll: allOpts});
+    const id = this.state.clickedId;
+    const chartId = this.props.params.id;
+    this.props.actions.voteAnOpt(id, chartId)
+      .then(data => {
+        console.log(`This is the result ${data}`);
+      }).catch(err => {
+        console.log(`Didn't work & here is the error ${err}`);
+      });
   }
   render () {
     const PieChart = Pie;
     return (
       <div>
         <h1>My Polls</h1>
-        <PieChart data={this.state.poll} options={this.state.chartOptions} width="600" height="250"/>
+        <PieChart data={this.props.options} options={this.state.chartOptions} width="600" height="250"/>
         <form>
           {
-            this.state.poll.map(opt => {
-              return  (<Input key={opt.id} id={opt.id} type="radio" name={opt.label} value={opt.label} checkedValue={this.state.checkedValue} checkClick={this.handleCheckClick}/>);
+            this.props.options.map(opt => {
+              return  (<Input key={opt._id} chartId={this.props.params.id} id={opt._id} type="radio" name={opt.label} value={opt.label} checkedValue={this.state.checkedValue} checkClick={this.handleCheckClick}/>);
             })
           }
           <button type="submit" onClick={this.handleSumbit}>VOTE</button>
@@ -75,4 +64,18 @@ SinglePoll.propTypes = {
   params: PropTypes.object.isRequired
 };
 
-export default SinglePoll;
+function mapStateToProps(state, ownProps) {
+  let options = [];
+  let poll = {title: '', publicDisplay: true, _id: '', poll: []};
+  if (state.poll.poll) {
+    poll = state.poll;
+    options = state.poll.poll;
+  }
+  return { poll, options };
+}
+
+function mapDispatchToProps(dispatch) {
+  return { actions: bindActionCreators(pollActions, dispatch) };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SinglePoll);

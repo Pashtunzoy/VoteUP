@@ -3,18 +3,14 @@ import initialState from './initialState';
 
 export default function pollsReducer(state = initialState.polls, action) {
   switch (action.type) {
-    case types.CREATE_POLLS_SUCCESS:
-        console.log('Created poll');
-      return [];
     case types.LOAD_POLLS_SUCCESS:
-        console.log('Updated poll');
-      return [];
-    case types.UPDATE_POLLS_SUCCESS:
-        console.log('Loaded poll');
-      return [];
-    case types.DELETE_POLLS_SUCCESS:
-      console.log('Deleted poll');
-    return [];
+      return action.polls;
+    case types.LOAD_POLLS_FAILURE:
+      return {err: action.err};
+    case types.DELETE_POLL_SUCCESS:
+      return state.filter(poll => poll._id !== action.id);
+    case types.DELETE_POLL_FAILURE:
+      return {err: action.err};
     default:
       return state;
   }
