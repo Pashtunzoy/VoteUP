@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux';
 import { routerStateReducer } from 'redux-router';
-import user from './userReducer.js';
+import auth from './authReducer.js';
 import polls from './pollsReducer.js';
 import poll from './pollReducer.js';
 import ajaxCallsInProgress from './ajaxStatusReducer';
 
 const rootReducer = combineReducers({
-  user,
+  auth,
   poll,
   polls,
   router: routerStateReducer,

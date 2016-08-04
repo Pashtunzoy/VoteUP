@@ -1,5 +1,10 @@
 export default {
-  user: {},
+  auth: {
+    isAuthenticated: localStorage.getItem('JWT') ? true : false,
+    user: {},
+    isFetching: false,
+    errorMessage: ''
+  },
   poll: {},
   polls: [],
   failure: '',

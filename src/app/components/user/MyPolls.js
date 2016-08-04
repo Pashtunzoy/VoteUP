@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as pollsActions from '../../actions/pollsActions';
 import * as pollActions from '../../actions/pollActions';
+import * as profileActions from '../../actions/authActions/profileActions';
 import { Link } from 'react-router';
 import Input from '../common/Input';
 
@@ -50,6 +51,7 @@ class MyPolls extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log(state);
   return {
     polls: state.polls
   };
@@ -58,7 +60,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     pollActions: bindActionCreators(pollActions, dispatch),
-    pollsActions: bindActionCreators(pollsActions, dispatch)
+    pollsActions: bindActionCreators(pollsActions, dispatch),
+    profileActions: bindActionCreators(profileActions, dispatch)
   };
 }
 

@@ -13,8 +13,10 @@ const NewPollInput = ({id, i, type, placeholder, name, value, checked, isCheckBo
   }
   return (
     <div>
-      {`Option ${i}: `}
-      <input type={type} placeholder={placeholder} name={name} value={value} onChange={onInputChange}/> <span onClick={onXClick}>&times;</span>
+      <span className="option-num">{`Option ${i}: `}</span>
+        <div className="field-wrap">
+          <input className="btn-radio" type={type} placeholder={placeholder} name={name} value={value} onChange={onInputChange}/> <span onClick={onXClick}>&times;</span>
+        </div>
     </div>
   );
 };

@@ -102,19 +102,20 @@ class NewPoll extends React.Component {
   render () {
     return (
       <div>
-        <h1>Add New Poll</h1>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <label>Title:</label>
+        <form onSubmit={this.handleSubmit} className="form">
+          <h1>Add New Poll</h1>
+          <div className="tab-content">
+            <label className="option-label">Title:</label>
             <br />
-            <NewPollInput type="text" placeholder="Title Of Your Poll" isTitle="true" name="Title" value={this.state.title} onTitleChange={this.handleTitleChange}/>
+            <div>
+              <NewPollInput type="text" placeholder="Title Of Your Poll" isTitle="true" name="Title" value={this.state.title} onTitleChange={this.handleTitleChange}/>
+            </div>
           </div>
           <div>
             <br/>
-            <label>Options:</label>
+            <label className="option-label">Options:</label>
             {
               this.state.poll.map((poll, i) => {
-                // console.log(poll);
                 return (
                     <NewPollInput
                       key={poll.id}
@@ -133,11 +134,14 @@ class NewPoll extends React.Component {
             {this.state.error && <span>{this.state.error}</span>}
             <br/>
           </div>
-          <div>
-            <label>Want to make it public?</label>
-            <NewPollInput type="checkbox" name="display" checked={this.state.display} isCheckBox={true} onChange={this.handleCheckClick}/>
+          <div className="pub-option">
+            <label className="option-label">Want to make it public?</label>
+            <NewPollInput type="checkbox" className="btn-check" name="display" checked={this.state.display} isCheckBox={true} onChange={this.handleCheckClick}/>
           </div>
-          <button type="submit">Submit</button><input type="button" onClick={this.addNewPollOpt} value="Add New Option"/>
+          <button type="submit" className="button-block btn-sub">
+            Submit
+          </button>
+          <input type="button" className="button-block btn-option" onClick={this.addNewPollOpt} value="Add New Option"/>
         </form>
       </div>
     );

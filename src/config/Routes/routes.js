@@ -41,7 +41,7 @@ router.param("oID", (req, res, next, id) => {
 });
 
 router.post('/register', (req, res) => {
-  if(!req.body.email || !req.body.password) return res.json({success: false, message: 'Please enter an emai & password to register'});
+  if(!req.body.email || !req.body.password) return res.json({success: false, message: 'Please enter an email & password to register'});
 
   const newUser = new User({
     email: req.body.email,
@@ -49,7 +49,7 @@ router.post('/register', (req, res) => {
   });
 
   console.log(req.body);
-
+  
   newUser.save((err) => {
     if(err) res.json({success: false, message: 'That email address already exists.'});
     res.json({success: true, message: 'Sucessfuly signed up.'});
@@ -66,7 +66,7 @@ router.post('/authenticate', (req, res) => {
           const token = jwt.sign(user.toObject(), config.secret, {
             expiresIn: 86400
           });
-          return res.json({success: true, token: `JWT ${token}`});
+          return res.json({success: true, data: user, token: `JWT ${token}`});
         }
         res.send({sucess: false, message: 'Authentication failed. Password did not match.'});
     });
@@ -76,8 +76,7 @@ router.post('/authenticate', (req, res) => {
 
   // This route will require JWT token to get access to.
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
-  res.status(200).send(`Access Granted & info for the access is: ${req.user.email}`);
-  console.log(req.user);
+  res.status(200).json({success: true, data: req.user});
 });
 
 

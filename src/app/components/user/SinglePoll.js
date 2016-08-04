@@ -49,8 +49,8 @@ class SinglePoll extends Component {
         <PieChart data={this.props.options} options={this.state.chartOptions} width="600" height="250"/>
         <form>
           {
-            this.props.options.map(opt => {
-              return  (<Input key={opt._id} chartId={this.props.params.id} id={opt._id} type="radio" name={opt.label} value={opt.label} checkedValue={this.state.checkedValue} checkClick={this.handleCheckClick}/>);
+            this.props.options.map((opt, i) => {
+              return  (<Input key={i} chartId={this.props.params.id} id={opt._id} type="radio" name={opt.label} value={opt.label} checkedValue={this.state.checkedValue} checkClick={this.handleCheckClick}/>);
             })
           }
           <button type="submit" onClick={this.handleSumbit}>VOTE</button>

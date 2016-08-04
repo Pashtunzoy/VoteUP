@@ -6,9 +6,10 @@ import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import configureStore from './store/configureStore';
 import routes from './routes';
+import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import './styles/main.scss';
 
-const store = configureStore();
+export const store = configureStore();
 
 render(
   <Provider store={store}>

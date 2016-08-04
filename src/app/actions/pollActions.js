@@ -36,7 +36,8 @@ export function voteAnOptFailure(err) {
 export function deletePollById(id) {
   return (dispatch, getState) => {
     dispatch(deletePollSuccess(id));
-    return fetch(`${types.API_ENDPOINT}/polls/${id}`,
+    const _id = localStorage.user_id;
+    return fetch(`${types.API_ENDPOINT}/${_id}/polls/${id}`,
       {
         method: 'DELETE',
         headers: {
@@ -63,7 +64,8 @@ export function deletePollById(id) {
 export function addNewPoll(poll) {
   return (dispatch, getState) => {
     dispatch(createPollSuccess(poll));
-    return fetch(`${types.API_ENDPOINT}/new`,
+    const _id = localStorage.user_id;
+    return fetch(`${types.API_ENDPOINT}/${_id}/new`,
     {
       method: 'POST',
       headers: {
@@ -88,7 +90,8 @@ export function addNewPoll(poll) {
 
 export function voteAnOpt(id, chartId) {
   return (dispatch, getState) => {
-    return fetch(`${types.API_ENDPOINT}/polls/${chartId}/option/${id}`,
+    const _id = localStorage.user_id;
+    return fetch(`${types.API_ENDPOINT}/${_id}/polls/${chartId}/option/${id}`,
       {method: 'POST', headers: {'Accept': 'application/json','Content-Type': 'application/json'},body: ''}
     )
     .then(res => {
@@ -110,7 +113,9 @@ export function voteAnOpt(id, chartId) {
 
 export function loadAPollById(id, dispatch) {
   return (dispatch, getState) => {
-    return fetch(`${types.API_ENDPOINT}/polls/${id}`)
+    console.log(getState());
+    const _id = localStorage.user_id;
+    return fetch(`${types.API_ENDPOINT}/${_id}/polls/${id}`)
       .then(res => {
         if (res.status >= 400) {
             throw new Error("Bad response from server");
