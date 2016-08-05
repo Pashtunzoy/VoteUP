@@ -21,7 +21,9 @@ class LoginForm extends React.Component {
       <Grid>
         <Row className="show-grid">
           <Col xs={12} md={8}>
-          <h1>Welcome Back!</h1>
+            <Col xs={12} mdOffset={2}>
+                <h1>Welcome Back!</h1>
+            </Col>
             <Form action="/" method="POST" horizontal>
                 <FormGroup controlId="formHorizontalEmail">
                   <Col componentClass={ControlLabel} sm={2}>

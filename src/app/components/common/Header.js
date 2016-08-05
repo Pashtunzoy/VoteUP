@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link, IndexLink } from 'react-router';
 import * as logoutActions from '../../actions/authActions/logoutActions.js';
+import { Navbar, Nav, NavItem, MenuItem, SafeAnchor } from 'react-bootstrap';
 
 class Header extends React.Component {
   constructor(props) {
@@ -17,22 +18,24 @@ class Header extends React.Component {
   render() {
     console.log(this.props);
     return (
-      <header>
-        <nav>
-          <IndexLink to="/" activeClassName="active">Home</IndexLink>
-          {" | "}
-          <Link to="/new" activeClassName="active">Add Poll</Link>
-          {" | "}
-          <Link to="/polls" activeClassName="active">MyPolls</Link>
-          {" | "}
-          <Link to="/auth" activeClassName="active">User</Link>
-          {" | "}
-          {this.props.authenticated
-            && <a href="#" activeClassName="active" onClick={this.handleLogout}>Logout</a>}
-          {" | "}
-          <Link to="/about" activeClassName="active">About</Link>
-        </nav>
-      </header>
+      <Navbar>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <Link to="/">VOTEUP</Link>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav>
+            <NavItem componentClass={Link} eventKey={3} href="/" to="/">Home</NavItem>
+            {this.props.authenticated && <NavItem componentClass={Link} eventKey={2} href="/polls" to="/polls">My Polls</NavItem>}
+            {this.props.authenticated && <NavItem componentClass={Link} eventKey={1} href="/new" to="/new">Add Poll</NavItem>}
+            <NavItem componentClass={Link} eventKey={3} href="/auth" to="/auth">User</NavItem>
+            {this.props.authenticated && <NavItem componentClass={Link} onClick={this.handleLogout} href="#" to="#">Logout</NavItem>}
+            <NavItem componentClass={Link} eventKey={5} href="/about" to="/about">About</NavItem>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     );
   }
 }

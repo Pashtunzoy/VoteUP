@@ -6,6 +6,7 @@ import * as pollActions from '../../actions/pollActions';
 import * as profileActions from '../../actions/authActions/profileActions';
 import { Link } from 'react-router';
 import Input from '../common/Input';
+import { Button, Col, Grid, Row } from 'react-bootstrap';
 
 class MyPolls extends Component {
   constructor(props, context) {
@@ -16,7 +17,7 @@ class MyPolls extends Component {
     this.deletePoll = this.deletePoll.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.pollsActions.loadAllPolls();
   }
 
@@ -31,21 +32,24 @@ class MyPolls extends Component {
   }
 
   render () {
-    console.log(this.props.polls);
     return (
-      <div>
-        <h1>My Polls</h1>
-        <ul>
-          {
-            this.props.polls.map(poll =>
-              <div key={poll._id}>
-                <Link to={`poll/${poll._id}`}><li>{poll.title}</li></Link>
-                <span onClick={(e) => this.deletePoll(poll._id)}>&times;</span>
-              </div>
-            )
-          }
-        </ul>
-      </div>
+      <Grid>
+        <Row>
+          <Col xs={12} md={8}>
+            <h1>My Polls</h1>
+            <ul>
+              {
+                this.props.polls.map(poll =>
+                  <div key={poll._id}>
+                    <Link to={`poll/${poll._id}`}><li>{poll.title}</li></Link>
+                    <span onClick={(e) => this.deletePoll(poll._id)}>&times;</span>
+                  </div>
+                )
+              }
+            </ul>
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }

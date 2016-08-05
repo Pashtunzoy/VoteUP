@@ -21,7 +21,6 @@ class Profile extends React.Component {
         <div>
           <h3>Authenticated User Profile</h3>
           <h1>Email: {this.props.auth.user.data.email}</h1>
-          <h5>Your Polls:</h5>
         </div>
       );
     }

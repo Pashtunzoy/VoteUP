@@ -27,10 +27,11 @@
 // 	overflow-y: scroll;
 // }
 //
-// body {
-//   background:$body-bg;
+// main {
+//   // background:$body-bg;
 //   font-family: 'Titillium Web', sans-serif;
 //   margin: 0 auto;
+//   width: 80%;
 // }
 //
 // main {
@@ -274,4 +275,10 @@
 // .vote-options {
 //   display: inline-table;
 //   padding: 1rem;
+// }
+
+
+// canvas {
+//   max-width: 100% !important;
+//   height: auto;
 // }

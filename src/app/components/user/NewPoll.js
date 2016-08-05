@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import * as pollActions from '../../actions/pollActions';
 import { browserHistory } from 'react-router';
 import NewPollInput from '../common/NewPollInput';
+import { Button, Form, FormGroup, FieldGroup, Col, FormControl, ControlLabel, Grid, Row } from 'react-bootstrap';
 
 class NewPoll extends React.Component {
   constructor(props, context) {
@@ -34,7 +35,6 @@ class NewPoll extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addNewPollOpt = this.addNewPollOpt.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleCheckClick = this.handleCheckClick.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
   }
@@ -45,7 +45,6 @@ class NewPoll extends React.Component {
     const newPoll = {
       id,
       title,
-      display,
       poll
     };
     this.props.actions.addNewPoll(newPoll)
@@ -69,7 +68,7 @@ class NewPoll extends React.Component {
    this.setState({poll: pollData});
   }
 
-  handleChange(id, e) {
+  handleChange(e, id) {
     // console.log(id);
     // console.log(e.target.value);
     const pollData = this.state.poll;
@@ -82,15 +81,12 @@ class NewPoll extends React.Component {
     this.setState({poll: pollData});
   }
 
-  handleCheckClick(id, e) {
-    this.setState({display: !this.state.display});
-  }
-
   handleTitleChange(e) {
+    console.log(e);
     this.setState({title: e.target.value});
   }
 
-  handleDeleteClick(id, e) {
+  handleDeleteClick(e, id) {
     let pollData = this.state.poll;
     if (pollData.length <= 2) {
       return this.setState({error: "There must be an option remaining"});
@@ -101,49 +97,63 @@ class NewPoll extends React.Component {
   }
   render () {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit} className="form">
-          <h1>Add New Poll</h1>
-          <div className="tab-content">
-            <label className="option-label">Title:</label>
-            <br />
-            <div>
-              <NewPollInput type="text" placeholder="Title Of Your Poll" isTitle="true" name="Title" value={this.state.title} onTitleChange={this.handleTitleChange}/>
-            </div>
-          </div>
-          <div>
-            <br/>
-            <label className="option-label">Options:</label>
-            {
-              this.state.poll.map((poll, i) => {
-                return (
-                    <NewPollInput
-                      key={poll.id}
-                      i={i+1}
-                      id={poll.id}
-                      type="text"
-                      placeholder="Enter Your Voting Option"
-                      name={poll.label}
-                      value={poll.label || ''}
-                      onChange={this.handleChange}
-                      onClick={this.handleDeleteClick}
-                    />
-                );
-              })
-            }
-            {this.state.error && <span>{this.state.error}</span>}
-            <br/>
-          </div>
-          <div className="pub-option">
-            <label className="option-label">Want to make it public?</label>
-            <NewPollInput type="checkbox" className="btn-check" name="display" checked={this.state.display} isCheckBox={true} onChange={this.handleCheckClick}/>
-          </div>
-          <button type="submit" className="button-block btn-sub">
-            Submit
-          </button>
-          <input type="button" className="button-block btn-option" onClick={this.addNewPollOpt} value="Add New Option"/>
-        </form>
-      </div>
+      <Grid>
+        <Row className="show-grid">
+          <Form onSubmit={this.handleSubmit} horizontal>
+            <Col sm={12} smOffset={2}>
+              <h1>Add New Poll</h1>
+            </Col>
+            <FormGroup conrolId="formBasicText">
+              <Col componentClass={ControlLabel}
+                sm={2}>
+                  <ControlLabel>Title:</ControlLabel>
+              </Col>
+              <Col sm={6}>
+                <FormControl
+                  type="text"
+                  placeholder="Title Of Your Poll"
+                  onChange={e => this.setState({title: e.target.value})}
+                />
+              </Col>
+            </FormGroup>
+                {
+                  this.state.poll.map((poll, i) => {
+                    return (
+                        <FormGroup conrolId="formBasicText" key={i+1}>
+                            <Col componentClass={ControlLabel}
+                              sm={2}>
+                                <ControlLabel>{`Option ${i+1}: `}</ControlLabel>
+                            </Col>
+                            <Col sm={6}>
+                              <FormControl
+                                type='text'
+                                placeholder="Enter Your Voting Option"
+                                name={poll.label}
+                                value={poll.label || ''}
+                                onChange={(e) => this.handleChange(e, poll.id)}/>
+                              <span
+                                onClick={(e) => this.handleDeleteClick(e, poll.id)}>
+                                &times;
+                              </span>
+                            </Col>
+                        </FormGroup>
+                    );
+                  })
+                }
+              <Col sm={6} smOffset={2}>
+                {this.state.error && <span>{this.state.error}</span>}
+              </Col>
+            <FormGroup>
+              <Col sm={6} smOffset={2}>
+              <Button type="submit" className="button-block btn-sub">
+                Submit
+              </Button>
+              <Button onClick={this.addNewPollOpt}>Add New Option</Button>
+              </Col>
+            </FormGroup>
+          </Form>
+        </Row>
+      </Grid>
     );
   }
 }

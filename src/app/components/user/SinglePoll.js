@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Pie } from 'react-chartjs';
 import Chart from 'chartjs';
 import * as pollActions from '../../actions/pollActions';
-import Input from '../common/Input';
+import { Button, Form, FormGroup, Col, FormControl, ControlLabel, Grid, Row, Radio, Nav } from 'react-bootstrap';
 
 import { fakeChartOptions, voteInput } from '../../api/mockApiPolls';
 
@@ -26,8 +26,8 @@ class SinglePoll extends Component {
     this.props.actions.loadAPollById(this.props.params.id);
   }
 
-  handleCheckClick(e, id) {
-    this.setState({checkedValue: e.target.value, clickedId: id});
+  handleCheckClick(e, id, value) {
+    this.setState({checkedValue: value, clickedId: id});
   }
 
   handleSumbit(e) {
@@ -44,18 +44,28 @@ class SinglePoll extends Component {
   render () {
     const PieChart = Pie;
     return (
-      <div>
-        <h1>My Polls</h1>
-        <PieChart data={this.props.options} options={this.state.chartOptions} width="600" height="250"/>
-        <form>
-          {
-            this.props.options.map((opt, i) => {
-              return  (<Input key={i} chartId={this.props.params.id} id={opt._id} type="radio" name={opt.label} value={opt.label} checkedValue={this.state.checkedValue} checkClick={this.handleCheckClick}/>);
-            })
-          }
-          <button type="submit" onClick={this.handleSumbit}>VOTE</button>
-        </form>
-      </div>
+      <Grid className="centerBlock">
+        <Row className="show-grid">
+          <Col xs={12} md={8} mdOffset={3} xsOffset={1}>
+            <h1>Q: {this.props.poll.title}</h1>
+            <Col mdOffset={2}>
+              <PieChart data={this.props.options} options={this.state.chartOptions} width="300" height="300"/>
+            </Col>
+            <Form>
+              <Nav>
+                {
+                  this.props.options.map((opt, i) => {
+                    return  (
+                      <Radio inline key={i} onChange={(e) => this.handleCheckClick(e, opt._id, opt.label)} checked={opt.label === this.state.checkedValue}>{opt.label}</Radio>
+                    );
+                  })
+                }
+              </Nav>
+              <Button type="submit" onClick={this.handleSumbit}>VOTE</Button>
+            </Form>
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }

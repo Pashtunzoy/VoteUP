@@ -1,16 +1,12 @@
 import React, { PropTypes } from 'react';
+import { Button, Form, FormGroup, Col, FormControl, ControlLabel, Grid, Row, Radio } from 'react-bootstrap';
 
 const Input = ({id, chartId, type, name, value, checkedValue, checkClick}) => {
   const printChecked = (e) => {
     checkClick(e, id, chartId);
   };
 
-  return (
-    <div className="vote-options">
-      {value}
-      <br />
-      <input type={type} name={name} onChange={printChecked} value={value} checked={value === checkedValue} />
-    </div>
+  return (<Radio type={type} name={name} onChange={printChecked} checked={value === checkedValue}>{value}</Radio>
   );
 };
 

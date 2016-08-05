@@ -17,7 +17,7 @@ export default (
     <Route path="about" component={AboutPage} />
     <Route path="auth" component={SetupUser} />
     <Route path="polls" component={requireAuth(MyPolls)}/>
-    <Route path="poll/:id" component={SinglePoll}/>
-    <Route path="new" component={NewPoll}/>
+    <Route path="poll/:id" component={requireAuth(SinglePoll)}/>
+    <Route path="new" component={requireAuth(NewPoll)}/>
   </Route>
 );

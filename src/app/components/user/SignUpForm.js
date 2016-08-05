@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Form, FormGroup, FieldGroup, Col, FormControl, ControlLabel, Grid, Row } from 'react-bootstrap';
 
 class SignUpForm extends React.Component {
   constructor(props) {
@@ -20,37 +20,79 @@ class SignUpForm extends React.Component {
 
   render() {
     return (
-      <div id="signup">
-        <h1>Sign Up for Free</h1>
-        <form action="/" method="POST">
-          <div className="top-row">
-            <div className="field-wrap">
-              <input type="text" required placeholder="First Name"
-                onChange={e => this.setState({firstName: e.target.value})}
-              />
-            </div>
-            <div className="field-wrap">
-              <input type="text"required placeholder="Last Name"
-                onChange={e => this.setState({lastName: e.target.value})}
-              />
-            </div>
-          </div>
-          <div className="field-wrap">
-            <input type="email"required placeholder="Email Address"
-              onChange={e => this.setState({email: e.target.value})}
-            />
-          </div>
-          <div className="field-wrap">
-            <input type="password"required placeholder="Set A Password"
-              onChange={e => this.setState({password: e.target.value})}
-            />
-          </div>
-          <Button type="submit" bsStyle="primary"
-            onClick={this.handleForm}>
-            Get Started
-          </Button>
-        </form>
-      </div>
+      <Grid>
+        <Row className="show-grid">
+          <Col xs={12} md={8}>
+            <Col xs={12} mdOffset={2}>
+                <h1>Sign Up for Free</h1>
+            </Col>
+            <Form action="/" method="POST" horizontal>
+              <FormGroup conrolId="formBasicText">
+                <Col componentClass={ControlLabel}
+                  sm={2}>
+                    First Name:
+                </Col>
+                <Col sm={10}>
+                  <FormControl
+                    type="text"
+                    placeholder="First Name"
+                    onChange={e => this.setState({firstName: e.target.value})}
+                  />
+                </Col>
+              </FormGroup>
+
+              <FormGroup conrolId="formBasicText">
+                <Col componentClass={ControlLabel}
+                  sm={2}>
+                    Last Name:
+                </Col>
+                <Col sm={10}>
+                  <FormControl
+                    type="text"
+                    placeholder="Last Name"
+                    onChange={e => this.setState({lastName: e.target.value})}
+                  />
+                </Col>
+              </FormGroup>
+
+              <FormGroup controlId="formHorizontalEmail">
+                <Col componentClass={ControlLabel} sm={2}>
+                  Email:
+                </Col>
+                <Col sm={10}>
+                  <FormControl
+                    type="email"
+                    placeholder="Email"
+                    onChange={e => this.setState({email: e.target.value})}/>
+                </Col>
+              </FormGroup>
+
+              <FormGroup controlId="formHorizontalPassword">
+                <Col componentClass={ControlLabel} sm={2}>
+                  Password
+                </Col>
+                <Col sm={10}>
+                  <FormControl
+                    type="password"
+                    placeholder="Password"
+                    onChange={e => this.setState({password: e.target.value})}/>
+                </Col>
+              </FormGroup>
+
+              <FormGroup>
+               <Col smOffset={2} sm={10}>
+                <Button
+                  type="submit"
+                  bsStyle="primary"
+                  onClick={this.handleForm}>
+                  Get Started
+                </Button>
+              </Col>
+            </FormGroup>
+          </Form>
+        </Col>
+      </Row>
+    </Grid>
     );
   }
 }
