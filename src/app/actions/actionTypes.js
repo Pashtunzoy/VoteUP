@@ -1,5 +1,6 @@
-export const API_ENDPOINT = 'http://localhost:3000/api';
-export const AUTH_ENDPOINT = 'http://localhost:3000/api';
+
+export const API_ENDPOINT = 'https//voteup1.herokuapp.com/api';
+export const AUTH_ENDPOINT = API_ENDPOINT;
 
 export const BEGIN_AJAX_CALL = 'BEGIN_AJAX_CALL';
 export const AJAX_CALL_ERROR = 'AJAX_CALL_ERROR';

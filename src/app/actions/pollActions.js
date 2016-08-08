@@ -1,6 +1,5 @@
 import * as types from './actionTypes';
 
-
 export function createPollSuccess(poll) {
   return { type: types.CREATE_POLL_SUCCESS, poll };
 }
