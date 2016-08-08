@@ -1,4 +1,3 @@
-
 export const API_ENDPOINT = '/api';
 export const AUTH_ENDPOINT = API_ENDPOINT;
 
