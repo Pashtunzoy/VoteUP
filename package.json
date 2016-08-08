@@ -4,7 +4,7 @@
   "description": "A Voting App built with React & Redux with Express Backend",
   "main": "server.js",
   "scripts": {
-    "start": "babel-node server.js",
+    "start": "./node_modules/.bin/babel-node server.js",
     "prestart-dev": "babel-node tools/startMessage.js",
     "start-dev": "npm-run-all --parallel test:watch open:src lint:watch",
     "api": "nodemon server.js --exec babel-node --presets es2015,stage-2",
