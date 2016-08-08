@@ -13,7 +13,6 @@ export function loginFailure(err) {
 }
 
 export function loginUser(creds) {
-  console.log(process.env.API);
   let config = {
     method: 'POST',
     headers: {
