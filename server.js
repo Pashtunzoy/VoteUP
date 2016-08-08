@@ -11,7 +11,6 @@ import config from './src/config/main';
 import User from './src/config/models/user';
 import jwtStrategy from './src/config/auth/passport';
 import routes from './src/config/Routes/routes';
-import open from 'open';
 import compression from 'compression';
 
 const app = express();
