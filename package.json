@@ -50,9 +50,7 @@
     "redux": "^3.5.2",
     "redux-router": "^2.1.2",
     "redux-thunk": "^2.1.0",
-    "toastr": "^2.1.2"
-  },
-  "devDependencies": {
+    "toastr": "^2.1.2",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
@@ -61,7 +59,9 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-2": "^6.5.0",
-    "babel-register": "^6.9.0",
+    "babel-register": "^6.9.0"
+  },
+  "devDependencies": {
     "colors": "^1.1.2",
     "compression": "^1.6.2",
     "cross-env": "^1.0.8",
