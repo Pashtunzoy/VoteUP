@@ -2,7 +2,7 @@
 
 ### A web app(MVP) to use it for voting on your favourite topics. This app is practice/portfolio based and by no means intended for mass use.  
 
-## [Visit]('https://voteup1.herokuapp.com')
+## [Visit Site](https://voteup1.herokuapp.com)
 
 ### Stack Used:
 * React
