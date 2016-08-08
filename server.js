@@ -51,5 +51,5 @@ app.get('*', function(req, res) {
 const port = process.env.PORT || 3000;
 app.listen(port, (err) => {
   if (err) console.log(err);
-  console.log(port);
+  console.log(`http://localhost:${port}`);
 });

@@ -19,6 +19,6 @@ app.listen(port, function(err) {
   if (err) {
     console.log(err);
   } else {
-    open(port);
+    console.log(port);
   }
 });

@@ -24,8 +24,6 @@ export function loginUser(creds) {
   };
   return (dispatch, getState) => {
     dispatch(loginRequest());
-    console.log(types.API_ENDPOINT);
-    console.log(types.AUTH_ENDPOINT);
     return fetch(`${types.AUTH_ENDPOINT}/authenticate`, config)
     .then(res => res.json() )
     .then(user => {
