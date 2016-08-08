@@ -1,15 +1,15 @@
 import * as types from '../actionTypes';
 
 export function loginRequest() {
-  return { type: types.LOGIN_REQUEST }
+  return { type: types.LOGIN_REQUEST };
 }
 
 export function loginSuccess(user) {
-  return { type: types.LOGIN_SUCCESS, user: user }
+  return { type: types.LOGIN_SUCCESS, user: user };
 }
 
 export function loginFailure(err) {
-  return { type: types.LOGIN_FAILURE, err }
+  return { type: types.LOGIN_FAILURE, err };
 }
 
 export function loginUser(creds) {
@@ -23,7 +23,6 @@ export function loginUser(creds) {
   };
   return (dispatch, getState) => {
     dispatch(loginRequest());
-    console.log(getState().auth);
     return fetch(`${types.AUTH_ENDPOINT}/authenticate`, config)
     .then(res => res.json() )
     .then(user => {
@@ -32,7 +31,6 @@ export function loginUser(creds) {
       } else {
         localStorage.setItem('JWT', user.token);
         localStorage.setItem('user_id', user.data._id);
-        console.log(user);
         dispatch(loginSuccess(user));
       }
     })

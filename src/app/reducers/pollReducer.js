@@ -6,7 +6,6 @@ export default function pollReducer(state = initialState.poll, action) {
     case types.CREATE_POLL_SUCCESS:
       return Object.assign({}, ...state, action.poll);
     case types.UPDATE_POLL_SUCCESS:
-        console.log('Updated poll');
       return {};
     case types.LOAD_POLL_SUCCESS:
       return Object.assign({}, ...state, action.poll);
@@ -15,7 +14,6 @@ export default function pollReducer(state = initialState.poll, action) {
     case types.POLL_VOTE_SUCCESS:
       return Object.assign({}, ...state, action.poll);
     case types.POLL_VOTE_FAILURE:
-      console.log(action.err);
       return {};
     default:
       return state;

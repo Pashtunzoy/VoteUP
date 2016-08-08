@@ -15,7 +15,15 @@ class SignUpForm extends React.Component {
 
   handleForm(e) {
     e.preventDefault();
-    this.props.signUp.signupUser(this.state);
+    this.props.signUp.signupUser(this.state).then(() => {
+      this.context.router.push('/');
+    });
+    this.setState({
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: ''
+    });
   }
 
   render() {
@@ -95,6 +103,10 @@ class SignUpForm extends React.Component {
     </Grid>
     );
   }
+}
+
+SignUpForm.contextTypes = {
+  router: React.PropTypes.object
 }
 
 export default SignUpForm;

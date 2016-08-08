@@ -1,16 +1,6 @@
 import { v4 } from 'node-uuid';
 import 'isomorphic-fetch';
 
-// export const fakeChartData = fetch('http://localhost:3000/api/5798b0b98d14e1fd265d3c67')
-//   .then(function(response) {
-//     if (response.status >= 400) {
-//         throw new Error("Bad response from server");
-//     }
-//     return response.json();
-//   })
-//   .then(function(data) {
-//     return data;
-// });
 export const fakeChartData = [
   {
     id: v4(),
@@ -192,17 +182,6 @@ delay(500).then(() => {
 
 export const fetchPollOptById = (id, chartId) =>
   delay(500).then(() => {
-  // return fakeChartData.reduce((acc, data) => acc.concat(data.poll), []).filter(pollObj => pollObj.id === id)[0];
-  //   fakeChartData.map(data => {
-  //       data.poll.map(data => {
-  //           if (data.id === id) {
-  //               result = data;
-  //               return data;
-  //           }
-  //       });
-  //   });
-  //   return result;
-  // console.log(fakeChartData)
   let result;
   return fetchChartById(chartId).then((data) => {
     data.poll.map(data => {
@@ -212,7 +191,7 @@ export const fetchPollOptById = (id, chartId) =>
       }
     });
     return result;
-  })
+  });
 });
 
 export const voteInput = (id, chartId) => {
@@ -235,7 +214,6 @@ export const voteInput = (id, chartId) => {
       return response.json();
     })
     .then(function(data) {
-      console.log(data);
       return data;
     });
   });

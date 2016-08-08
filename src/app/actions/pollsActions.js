@@ -9,7 +9,7 @@ export function loadAllPollsFailure(err) {
 }
 
 export function loadAllPollsRequest() {
-  return { type: types.LOAD_POLLS_REQUEST }
+  return { type: types.LOAD_POLLS_REQUEST };
 }
 
 export function loadAllPolls() {
@@ -21,13 +21,12 @@ export function loadAllPolls() {
         if (res.status >= 400) {
             throw new Error("Bad response from server");
         }
-        return res.json()
+        return res.json();
       })
       .then(polls => {
         dispatch(loadAllPollsSuccess(polls));
       }).catch((err) => {
         dispatch(loadAllPollsFailure(err));
-        console.log('Got error while getting polls: ', err);
       });
-  }
+  };
 }

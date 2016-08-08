@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Pie } from 'react-chartjs';
 import Chart from 'chartjs';
 import * as pollActions from '../../actions/pollActions';
+import * as profileActions from '../../actions/authActions/profileActions';
 import { Button, Form, FormGroup, Col, FormControl, ControlLabel, Grid, Row, Radio, Nav } from 'react-bootstrap';
 
 import { fakeChartOptions, voteInput } from '../../api/mockApiPolls';
@@ -23,7 +24,7 @@ class SinglePoll extends Component {
   }
 
   componentDidMount() {
-    this.props.actions.loadAPollById(this.props.params.id);
+    this.props.actions.loadAPollById(this.props.params.uId, this.props.params.id);
   }
 
   handleCheckClick(e, id, value) {
@@ -34,11 +35,11 @@ class SinglePoll extends Component {
     e.preventDefault();
     const id = this.state.clickedId;
     const chartId = this.props.params.id;
-    this.props.actions.voteAnOpt(id, chartId)
+    this.props.actions.voteAnOpt(this.props.params.uId, id, chartId)
       .then(data => {
-        console.log(`This is the result ${data}`);
+        // console.log(`This is the result ${data}`);
       }).catch(err => {
-        console.log(`Didn't work & here is the error ${err}`);
+        // console.log(`Didn't work & here is the error ${err}`);
       });
   }
   render () {
@@ -70,6 +71,10 @@ class SinglePoll extends Component {
   }
 }
 
+SinglePoll.contextTypes = {
+  router: React.PropTypes.object
+};
+
 SinglePoll.propTypes = {
   params: PropTypes.object.isRequired
 };
@@ -78,14 +83,17 @@ function mapStateToProps(state, ownProps) {
   let options = [];
   let poll = {title: '', publicDisplay: true, _id: '', poll: []};
   if (state.poll.poll) {
-    poll = state.poll;
+    poll = state.poll || state.auth.user.data.polls;
     options = state.poll.poll;
   }
   return { poll, options };
 }
 
 function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators(pollActions, dispatch) };
+  return {
+    actions: bindActionCreators(pollActions, dispatch),
+    profileActions: bindActionCreators(profileActions, dispatch)
+   };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SinglePoll);

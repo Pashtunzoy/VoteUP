@@ -31,7 +31,7 @@ export default function(ComposedComponent) {
 
   Authentication.contextTypes = {
     router: React.PropTypes.object
-  }
+  };
 
   return connect(mapStateToProps)(Authentication);
 }

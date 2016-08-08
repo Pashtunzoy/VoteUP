@@ -8,7 +8,6 @@ import MyPolls from './components/user/MyPolls';
 import SinglePoll from './components/user/SinglePoll';
 import NewPoll from './components/user/NewPoll';
 import requireAuth from './components/HOCs/authHOC';
-import {store} from './index';
 
 
 export default (
@@ -16,8 +15,8 @@ export default (
     <IndexRoute component={HomePage} />
     <Route path="about" component={AboutPage} />
     <Route path="auth" component={SetupUser} />
-    <Route path="polls" component={requireAuth(MyPolls)}/>
-    <Route path="poll/:id" component={requireAuth(SinglePoll)}/>
+    <Route path="/:Id/polls" component={requireAuth(MyPolls)}/>
+    <Route path="/:uId/poll/:id" component={SinglePoll}/>
     <Route path="new" component={requireAuth(NewPoll)}/>
   </Route>
 );

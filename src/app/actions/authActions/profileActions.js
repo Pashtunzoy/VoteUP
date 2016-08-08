@@ -27,7 +27,6 @@ export function getProfile() {
     return fetch(`${types.AUTH_ENDPOINT}/profile`, config)
     .then(res => res.json() )
     .then(user => {
-      console.log(user);
       dispatch(profileSuccess(user));
     })
     .catch(err => {

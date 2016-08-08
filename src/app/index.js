@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/*eslint-disable import/default*/
 import 'babel-polyfill';
 import React from 'react';
 import {render} from 'react-dom';
@@ -7,7 +7,7 @@ import { Router, browserHistory } from 'react-router';
 import configureStore from './store/configureStore';
 import routes from './routes';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
-import './styles/main.scss';
+import './styles/main.css';
 
 export const store = configureStore();
 

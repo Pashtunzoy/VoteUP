@@ -22,9 +22,9 @@ class MyPolls extends Component {
   }
 
   deletePoll(id) {
-    this.props.pollActions.deletePollById(id)
+    this.props.pollActions.deletePollById(this.props.params.uId, id)
       .then(data => {
-        console.log(data);
+        // console.log(data);
     });
     let { chartData } = this.state;
     chartData = chartData.filter(chart => chart.id !== id);
@@ -32,6 +32,11 @@ class MyPolls extends Component {
   }
 
   render () {
+    const {user} = this.props;
+    let id = '';
+    if (user.data) {
+      id = user.data._id
+    }
     return (
       <Grid>
         <Row>
@@ -41,7 +46,7 @@ class MyPolls extends Component {
               {
                 this.props.polls.map(poll =>
                   <div key={poll._id}>
-                    <Link to={`poll/${poll._id}`}><li>{poll.title}</li></Link>
+                    <Link to={`/${id}/poll/${poll._id}`}><li>{poll.title}</li></Link>
                     <span onClick={(e) => this.deletePoll(poll._id)}>&times;</span>
                   </div>
                 )
@@ -54,10 +59,16 @@ class MyPolls extends Component {
   }
 }
 
+MyPolls.propTypes = {
+  polls: PropTypes.array.isRequired,
+  pollsActions: PropTypes.object.isRequired,
+  pollActions: PropTypes.object.isRequired
+};
+
 function mapStateToProps(state) {
-  console.log(state);
   return {
-    polls: state.polls
+    polls: state.polls,
+    user: state.auth.user
   };
 }
 

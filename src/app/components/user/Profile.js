@@ -16,6 +16,7 @@ class Profile extends React.Component {
   }
 
   handleProfileRender() {
+    console.log(this.props);
     if (this.props.auth.user.success) {
       return (
         <div>

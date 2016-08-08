@@ -21,7 +21,7 @@ router.param("uID", (req, res, next, id) => {
 });
 
 router.param("pID", (req, res, next, id) => {
-  req.poll = req.uID.polls.id(id);
+  req.poll = {uID: req.uID.id, poll: req.uID.polls.id(id)};
   if (!req.poll) {
     const err = new Error("Not Found");
     err.status = 404;
@@ -31,7 +31,7 @@ router.param("pID", (req, res, next, id) => {
 });
 
 router.param("oID", (req, res, next, id) => {
-  req.option = req.poll.poll.id(id);
+  req.option = req.poll.poll.poll.id(id);
   if (!req.option) {
     const err = new Error("Not Found");
     err.status = 404;
@@ -49,7 +49,7 @@ router.post('/register', (req, res) => {
   });
 
   console.log(req.body);
-  
+
   newUser.save((err) => {
     if(err) res.json({success: false, message: 'That email address already exists.'});
     res.json({success: true, message: 'Sucessfuly signed up.'});
@@ -76,6 +76,7 @@ router.post('/authenticate', (req, res) => {
 
   // This route will require JWT token to get access to.
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
+  console.log('Got request');
   res.status(200).json({success: true, data: req.user});
 });
 
@@ -99,13 +100,15 @@ router.post('/:uID/new', (req, res, next) => {
 router.get('/:uID/polls/:pID', (req, res, next) => {
   // console.log('It worked and here is the data:', req.poll);
   console.log(req.poll.id);
+  console.log(req.poll);
   res.json(req.poll);
 });
 
 // Delete single POLL based on ID
 router.delete('/:uID/polls/:pID/', (req, res, next) => {
   // console.log(req.poll.id);
-  req.uID.polls.pull({_id: req.poll.id });
+  // req.uID.polls.findOne({_id: req.poll.id})
+  req.uID.polls.pull({_id: req.params.pID });
   req.uID.save((err, result) => {
     if(err) return next(err);
     res.json(result.polls);

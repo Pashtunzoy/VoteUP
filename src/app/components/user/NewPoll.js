@@ -49,7 +49,7 @@ class NewPoll extends React.Component {
     };
     this.props.actions.addNewPoll(newPoll)
     .then(poll => {
-      console.log(`The new poll from NewPoll container: ${poll}`);
+      // console.log(`The new poll from NewPoll container: ${poll}`);
       this.redirectSave();
     });
   }
@@ -82,7 +82,6 @@ class NewPoll extends React.Component {
   }
 
   handleTitleChange(e) {
-    console.log(e);
     this.setState({title: e.target.value});
   }
 
@@ -156,6 +155,10 @@ class NewPoll extends React.Component {
       </Grid>
     );
   }
+}
+
+NewPoll.propTypes = {
+  actions: PropTypes.object.isRequired
 }
 
 NewPoll.contextTypes = {

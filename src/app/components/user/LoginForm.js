@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import { Button, Form, FormGroup, Col, FormControl, ControlLabel, Grid, Row } from 'react-bootstrap';
 
 
@@ -64,6 +64,11 @@ class LoginForm extends React.Component {
       </Grid>
     );
   }
+}
+
+
+LoginForm.propTypes = {
+  logIn: PropTypes.object.isRequired
 }
 
 export default LoginForm;
