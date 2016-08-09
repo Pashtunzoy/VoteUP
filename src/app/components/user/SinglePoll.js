@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Pie } from 'react-chartjs';
 import Chart from 'chartjs';
+import toastr from 'toastr';
 import * as pollActions from '../../actions/pollActions';
 import * as profileActions from '../../actions/authActions/profileActions';
 import { Button, Form, FormGroup, Col, FormControl, ControlLabel, Grid, Row, Radio, Nav } from 'react-bootstrap';
@@ -35,12 +36,14 @@ class SinglePoll extends Component {
     e.preventDefault();
     const id = this.state.clickedId;
     const chartId = this.props.params.id;
-    this.props.actions.voteAnOpt(this.props.params.uId, id, chartId)
-      .then(data => {
-        // console.log(`This is the result ${data}`);
-      }).catch(err => {
-        // console.log(`Didn't work & here is the error ${err}`);
+    if (!this.state.checkedValue) {
+      toastr.error('Please select an option to Vote');
+    } else {
+      this.props.actions.voteAnOpt(this.props.params.uId, id, chartId)
+      .then().catch(err => {
+        toastr.error(`Your vote wasn't proccess because of this error: ${err}`);
       });
+    }
   }
   render () {
     const PieChart = Pie;

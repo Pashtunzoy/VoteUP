@@ -8,6 +8,7 @@ import configureStore from './store/configureStore';
 import routes from './routes';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import './styles/main.css';
+import '../../node_modules/toastr/build/toastr.min.css';
 
 export const store = configureStore();
 

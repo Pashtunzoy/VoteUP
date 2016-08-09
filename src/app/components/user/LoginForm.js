@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import toastr from 'toastr';
 import { Button, Form, FormGroup, Col, FormControl, ControlLabel, Grid, Row } from 'react-bootstrap';
 
 
@@ -14,7 +15,11 @@ class LoginForm extends React.Component {
 
   handleLogin(e) {
     e.preventDefault();
-    this.props.logIn.loginUser(this.state);
+    this.props.logIn.loginUser(this.state).then(data => {
+      toastr.success('You successfully logged In.')
+    }).catch((err) => {
+      toastr.error(err)
+    });
   }
   render() {
     return (

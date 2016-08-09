@@ -1,4 +1,5 @@
 import React from 'react';
+import toastr from 'toastr';
 import { Button, Form, FormGroup, FieldGroup, Col, FormControl, ControlLabel, Grid, Row } from 'react-bootstrap';
 
 class SignUpForm extends React.Component {
@@ -15,14 +16,16 @@ class SignUpForm extends React.Component {
 
   handleForm(e) {
     e.preventDefault();
-    this.props.signUp.signupUser(this.state).then(() => {
-      this.context.router.push('/');
-    });
-    this.setState({
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: ''
+    this.props.signUp.signupUser(this.state)
+    .then(data => {
+      if (data.err) {
+        toastr.error(`${data.err}`);
+      } else {
+        toastr.success('You successfuly signed up, now Login.');
+        this.context.router.push('/');
+      }
+    }).catch((err) => {
+      toastr.error(`Your request didn't go through, try again`);
     });
   }
 

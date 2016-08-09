@@ -7,7 +7,7 @@
     "start": "./node_modules/.bin/babel-node server.js",
     "prestart-dev": "babel-node tools/startMessage.js",
     "start-dev": "npm-run-all --parallel test:watch open:src lint:watch",
-    "api": "nodemon server.js --exec babel-node --presets es2015,stage-2",
+    "api": "nodemon ./tools/apiServer.js --exec babel-node --presets es2015,stage-2",
     "open:src": "babel-node tools/srcServer.js",
     "lint": "node_modules/.bin/esw webpack.config.* src tools",
     "lint:watch": "npm run lint -- --watch",
