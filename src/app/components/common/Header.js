@@ -12,14 +12,14 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeKey: 1
+      active: 'Home'
     };
     this.handleLogout = this.handleLogout.bind(this);
     this.handleNav = this.handleNav.bind(this);
   }
 
   componentDidMount() {
-    if (!this.props.user.data && this.props.authenticated) {
+    if (!this.props.user && !this.props.authenticated) {
       this.props.profileActions.getProfile();
     }
   }
@@ -30,9 +30,11 @@ class Header extends React.Component {
   }
 
   handleNav(e) {
-    // console.log(e.target.href.split('/'));
+    let linkName = e.target.text;
+    this.setState({active: linkName});
   }
   render() {
+    const {active} = this.state;
     let uId = '';
     if (this.props.user.data) {
       uId = this.props.user.data._id;
@@ -46,13 +48,25 @@ class Header extends React.Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          <Nav activeKey={1} onClick={this.handleNav}>
-            <NavItem componentClass={Link} eventKey={1} href="/" to="/">Home</NavItem>
-             {this.props.authenticated && <NavItem componentClass={Link} eventKey={4} href={`/${uId}/polls`} to={`/${uId}/polls`}>My Polls</NavItem>}
-             {this.props.authenticated && <NavItem componentClass={Link} eventKey={5} href="/new" to="/new">Add Poll</NavItem>}
-             <NavItem componentClass={Link} eventKey={3} href="/auth" to="/auth">User</NavItem>
-             {this.props.authenticated && <NavItem componentClass={Link} onClick={this.handleLogout} href="#" to="#">Logout</NavItem>}
-             <NavItem componentClass={Link} eventKey={2} href="/about" to="/about">About</NavItem>
+          <Nav>
+            <li className={active === 'Home' ? 'active' : ''}>
+              <Link onClick={this.handleNav} to="/">Home</Link>
+            </li>
+            <li className={active === 'My Polls' ? 'active' : ''}>
+              {this.props.authenticated && <Link onClick={this.handleNav} to={`/${uId}/polls`}>My Polls</Link>}
+            </li>
+            <li className={active === 'Add Poll' ? 'active' : ''}>
+              {this.props.authenticated && <Link onClick={this.handleNav} to="/new">Add Poll</Link>}
+            </li>
+            <li className={active === 'User' ? 'active' : ''}>
+              <Link onClick={this.handleNav} to="/auth">User</Link>
+            </li>
+            <li className={active === 'Logout' ? 'active' : ''}>
+              {this.props.authenticated && <Link onClick={this.handleNav, this.handleLogout} to="#">Logout</Link>}
+            </li>
+            <li className={active === 'About' ? 'active' : ''}>
+              <Link onClick={this.handleNav} to="/about">About</Link>
+            </li>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -68,7 +82,8 @@ Header.propTypes = {
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.isAuthenticated,
-    user: state.auth.user
+    user: state.auth.user,
+    router: state.router
   }
 }
 
