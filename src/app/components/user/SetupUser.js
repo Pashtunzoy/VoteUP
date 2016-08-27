@@ -44,7 +44,6 @@ class SetupUser extends Component {
   }
 
   render () {
-    // console.log(this.props);
     const authenticated = this.props.auth.isAuthenticated;
     return (
       <div>
@@ -55,7 +54,6 @@ class SetupUser extends Component {
 }
 
 function mapStateToProps(state) {
-  // console.log(state);
   return {
     auth: state.auth
   }

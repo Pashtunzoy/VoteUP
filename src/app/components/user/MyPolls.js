@@ -7,6 +7,7 @@ import * as profileActions from '../../actions/authActions/profileActions';
 import { Link } from 'react-router';
 import Input from '../common/Input';
 import { Button, Col, Grid, Row } from 'react-bootstrap';
+import toastr from 'toastr';
 
 class MyPolls extends Component {
   constructor(props, context) {
@@ -22,9 +23,9 @@ class MyPolls extends Component {
   }
 
   deletePoll(id) {
-    this.props.pollActions.deletePollById(this.props.params.uId, id)
+    this.props.pollActions.deletePollById(this.props.params.Id, id)
       .then(data => {
-        // console.log(data);
+      toastr.error('Poll Deleted');
     });
     let { chartData } = this.state;
     chartData = chartData.filter(chart => chart.id !== id);

@@ -77,7 +77,7 @@ router.post('/authenticate', (req, res) => {
     user.comparePassword(req.body.password, (err, isMatch) => {
         if(isMatch && !err) {
           const token = jwt.sign(user.toObject(), config.secret, {
-            expiresIn: 86400
+            expiresIn: 604800
           });
           return res.json({success: true, data: user, token: `JWT ${token}`});
         }
@@ -88,8 +88,10 @@ router.post('/authenticate', (req, res) => {
 
 
   // This route will require JWT token to get access to.
-router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
-  console.log('Got request');
+router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
   res.status(200).json({success: true, data: req.user});
 });
 

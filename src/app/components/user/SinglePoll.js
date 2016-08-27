@@ -53,6 +53,7 @@ class SinglePoll extends Component {
           <Col xs={12} md={8} mdOffset={3} xsOffset={1}>
             <h1>Q: {this.props.poll.title}</h1>
             <Col mdOffset={2}>
+              {!this.state.checkedValue && <h1>Cast your first Vote.</h1>}
               <PieChart data={this.props.options} options={this.state.chartOptions} width="300" height="300"/>
             </Col>
             <Form>

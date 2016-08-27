@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import * as profileActions from '../../actions/authActions/profileActions';
 
 class Profile extends React.Component {
@@ -12,11 +12,20 @@ class Profile extends React.Component {
   }
 
   componentWillMount() {
-    this.props.profileActions.getProfile();
+    if (this.props.auth.isAuthenticated) {
+      // console.log(this.props.user);
+      this.props.profileActions.getProfile().then(() => {
+
+      }).catch(err => {
+        console.log(err);
+      });
+    }
   }
 
   handleProfileRender() {
-    if (this.props.auth.user.success) {
+    // {this.props.auth.user.data.email}
+    // console.log(this.props.auth);
+    if (this.props.auth.isAuthenticated) {
       return (
         <div>
           <h3>Authenticated User Profile</h3>
@@ -37,7 +46,7 @@ class Profile extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { auth: state.auth };
+  return { auth: state.auth, user: state.auth.user };
 }
 
 function mapDispatchToProps(dispatch) {

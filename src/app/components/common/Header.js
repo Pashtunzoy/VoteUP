@@ -6,6 +6,7 @@ import * as logoutActions from '../../actions/authActions/logoutActions';
 import * as profileActions from '../../actions/authActions/profileActions';
 import { Navbar, Nav, NavItem, MenuItem, SafeAnchor } from 'react-bootstrap';
 import { IndexLinkContainer, LinkContainer, NavItemLink } from 'react-router-bootstrap';
+import toastr from 'toastr';
 
 class Header extends React.Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class Header extends React.Component {
 
   handleLogout(e) {
     this.props.logoutActions.logoutUser();
+    toastr.success('Successfuly Logged Out');
   }
 
   handleNav(e) {

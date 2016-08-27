@@ -6,6 +6,7 @@ import * as pollActions from '../../actions/pollActions';
 import { browserHistory } from 'react-router';
 import NewPollInput from '../common/NewPollInput';
 import { Button, Form, FormGroup, FieldGroup, Col, FormControl, ControlLabel, Grid, Row } from 'react-bootstrap';
+import toastr from 'toastr';
 
 class NewPoll extends React.Component {
   constructor(props, context) {
@@ -49,13 +50,17 @@ class NewPoll extends React.Component {
     };
     this.props.actions.addNewPoll(newPoll)
     .then(poll => {
-      // console.log(`The new poll from NewPoll container: ${poll}`);
+      toastr.success('A new Poll is added.');
       this.redirectSave();
+    }).catch((err) => {
+      toastr.error(`There was an error deleting the Poll: ${err}`);
     });
   }
 
   redirectSave() {
-    this.context.router.push('/polls');
+    if (localStorage.user_id) {
+      this.context.router.push(`${localStorage.user_id}/polls`);
+    }
   }
 
   addNewPollOpt() {
@@ -64,13 +69,10 @@ class NewPoll extends React.Component {
    const color = '#' + ("000000" + Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6);
    const highlight = '#' + ("000000" + Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6);
    pollData = [...pollData, {id: v4(), value: 0, color: color, highlight: highlight, label: '' }];
-  //  console.log(JSON.stringify(pollData));
    this.setState({poll: pollData});
   }
 
   handleChange(e, id) {
-    // console.log(id);
-    // console.log(e.target.value);
     const pollData = this.state.poll;
     pollData.map(poll => {
       if (poll.id === id) {
@@ -159,7 +161,7 @@ class NewPoll extends React.Component {
 
 NewPoll.propTypes = {
   actions: PropTypes.object.isRequired
-}
+};
 
 NewPoll.contextTypes = {
   router: React.PropTypes.object.isRequired

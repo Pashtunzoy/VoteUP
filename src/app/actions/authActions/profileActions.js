@@ -1,4 +1,6 @@
 import * as types from '../actionTypes';
+import { browserHistory } from 'react-router';
+import {receiveLogout} from './logoutActions';
 
 export function profileRequest() {
   return {type: types.PROFILE_REQUEST, isFetching: true };
@@ -23,14 +25,16 @@ export function getProfile() {
     }
   };
   return (dispatch, getState) => {
-    dispatch(profileRequest());
-    return fetch(`${types.AUTH_ENDPOINT}/profile`, config)
-    .then(res => res.json() )
-    .then(user => {
-      dispatch(profileSuccess(user));
-    })
-    .catch(err => {
-      dispatch(profileFailure(err));
-    });
+      dispatch(profileRequest());
+      return fetch(`${types.AUTH_ENDPOINT}/profile`, config)
+      .then(res => res.json() )
+      .then(user => {
+        dispatch(profileSuccess(user));
+      })
+      .catch(err => {
+        localStorage.removeItem('JWT');
+        localStorage.removeItem('user_id');
+        dispatch(receiveLogout());
+      });
   }
 }
