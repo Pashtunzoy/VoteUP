@@ -13,9 +13,9 @@ class Profile extends React.Component {
   componentWillMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.profileActions.getProfile().then(() => {
-        console.log(this.props);
+        // console.log(this.props);
       }).catch(err => {
-        console.log(err);
+        // console.log(err);
       });
     }
   }
