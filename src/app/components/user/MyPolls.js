@@ -20,6 +20,13 @@ class MyPolls extends Component {
 
   componentWillMount() {
     this.props.pollsActions.loadAllPolls();
+    if (this.props.auth.isAuthenticated) {
+      this.props.profileActions.getProfile().then(() => {
+        // console.log(this.props);
+      }).catch(err => {
+        // console.log(err);
+      });
+    }
   }
 
   deletePoll(id) {
@@ -36,8 +43,9 @@ class MyPolls extends Component {
     const {user} = this.props;
     let id = '';
     if (user.data) {
-      id = user.data._id
+      id = user.data._id;
     }
+
     return (
       <Grid>
         <Row>
@@ -53,6 +61,7 @@ class MyPolls extends Component {
                 )
               }
             </ul>
+            {this.props.polls.length < 1 && <Link to="/new"><h2>Go Ahead and add a poll</h2></Link>}
           </Col>
         </Row>
       </Grid>
@@ -63,12 +72,14 @@ class MyPolls extends Component {
 MyPolls.propTypes = {
   polls: PropTypes.array.isRequired,
   pollsActions: PropTypes.object.isRequired,
-  pollActions: PropTypes.object.isRequired
+  pollActions: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
   return {
     polls: state.polls,
+    auth: state.auth,
     user: state.auth.user
   };
 }

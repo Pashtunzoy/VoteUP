@@ -43,21 +43,16 @@ router.param("oID", (req, res, next, id) => {
 router.post('/register', (req, res) => {
   if(!req.body.email || !req.body.password) {
     return res.json({success: false, message: 'Please enter an email & password to register'});
-  } else {
-    if (req.body.email) {
-      User.findOne({ email: req.body.email }, (err, user) => {
-        if(err) throw err;
-        if(user) {
-          return res.json({success: false, message: 'That email address already exists.'});
-        }
-      });
+  }
+  User.findOne({ email: req.body.email }, (err, user) => {
+    if(err) throw err;
+    if(user) {
+      return res.json({success: false, message: 'That email address already exists.'});
     } else {
       const newUser = new User({
         email: req.body.email,
         password: req.body.password
       });
-
-      console.log(req.body);
 
       newUser.save((err) => {
         if(err) {
@@ -66,7 +61,7 @@ router.post('/register', (req, res) => {
         return res.json({success: true, message: 'Sucessfuly signed up.'});
       });
     }
-  }
+  });
 });
 
 

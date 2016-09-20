@@ -34,5 +34,5 @@ export function signupUser(creds) {
     .catch(err => {
       dispatch(signupFailure(err));
     });
-  }
+  };
 }

@@ -11,6 +11,7 @@ class SignUpForm extends React.Component {
       email: '',
       password: ''
     };
+    this.currentState = this.state;
     this.handleForm = this.handleForm.bind(this);
   }
 
@@ -18,12 +19,8 @@ class SignUpForm extends React.Component {
     e.preventDefault();
     this.props.signUp.signupUser(this.state)
     .then(data => {
-      if (data.err) {
-        toastr.error(`${data.err}`);
-      } else {
-        toastr.success('You successfuly signed up, now Login.');
-        this.context.router.push('/');
-      }
+      toastr.success('You successfuly signed up, now Login.');
+      this.setState(this.currentState);
     }).catch((err) => {
       toastr.error(`Your request didn't go through, try again`);
     });
@@ -47,6 +44,7 @@ class SignUpForm extends React.Component {
                   <FormControl
                     type="text"
                     placeholder="First Name"
+                    value={this.state.firstName}
                     onChange={e => this.setState({firstName: e.target.value})}
                   />
                 </Col>
@@ -61,6 +59,7 @@ class SignUpForm extends React.Component {
                   <FormControl
                     type="text"
                     placeholder="Last Name"
+                    value={this.state.lastName}
                     onChange={e => this.setState({lastName: e.target.value})}
                   />
                 </Col>
@@ -74,6 +73,7 @@ class SignUpForm extends React.Component {
                   <FormControl
                     type="email"
                     placeholder="Email"
+                    value={this.state.email}
                     onChange={e => this.setState({email: e.target.value})}/>
                 </Col>
               </FormGroup>
@@ -86,6 +86,7 @@ class SignUpForm extends React.Component {
                   <FormControl
                     type="password"
                     placeholder="Password"
+                    value={this.state.password}
                     onChange={e => this.setState({password: e.target.value})}/>
                 </Col>
               </FormGroup>

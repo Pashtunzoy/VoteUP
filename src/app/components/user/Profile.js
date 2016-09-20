@@ -7,15 +7,13 @@ import * as profileActions from '../../actions/authActions/profileActions';
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-
     this.handleProfileRender = this.handleProfileRender.bind(this);
   }
 
   componentWillMount() {
     if (this.props.auth.isAuthenticated) {
-      // console.log(this.props.user);
       this.props.profileActions.getProfile().then(() => {
-
+        console.log(this.props);
       }).catch(err => {
         console.log(err);
       });
@@ -23,9 +21,7 @@ class Profile extends React.Component {
   }
 
   handleProfileRender() {
-    // {this.props.auth.user.data.email}
-    // console.log(this.props.auth);
-    if (this.props.auth.isAuthenticated) {
+    if (this.props.auth.isAuthenticated && this.props.auth.user) {
       return (
         <div>
           <h3>Authenticated User Profile</h3>
@@ -39,13 +35,15 @@ class Profile extends React.Component {
     const isFetching = this.props.auth.isFetching;
     return (
       <div>
-        {isFetching && <h5>Loading...</h5> || this.handleProfileRender()}
+        {this.handleProfileRender()}
+        {this.props.auth.isFetching && <h5>Loading...</h5>}
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
+  // console.log(state);
   return { auth: state.auth, user: state.auth.user };
 }
 

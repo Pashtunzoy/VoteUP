@@ -49,14 +49,14 @@ class SetupUser extends Component {
       <div>
         {!authenticated && this.isNotAuth() || authenticated && <Profile {...this.props.auth}/>}
       </div>
-    )
+    );
   }
 }
 
 function mapStateToProps(state) {
   return {
     auth: state.auth
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {

@@ -35,6 +35,7 @@ export function loginUser(creds) {
       }
     })
     .catch(err => {
+      console.log('Error occured');
       dispatch(loginFailure(err));
     });
   }

@@ -16,9 +16,9 @@ class LoginForm extends React.Component {
   handleLogin(e) {
     e.preventDefault();
     this.props.logIn.loginUser(this.state).then(data => {
-      toastr.success('You successfully logged In.')
+      toastr.success('You successfully logged In.');
     }).catch((err) => {
-      toastr.error(err)
+      toastr.error(err);
     });
   }
   render() {
@@ -74,6 +74,6 @@ class LoginForm extends React.Component {
 
 LoginForm.propTypes = {
   logIn: PropTypes.object.isRequired
-}
+};
 
 export default LoginForm;
